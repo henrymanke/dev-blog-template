@@ -26,7 +26,7 @@ jobs:
           commit-message: "Auto-generated commit"
           title: "Auto-generated PR"
           body: "This PR is auto-generated"
-          branch: ${{ github.head_ref }}
+          branch: "${{ github.head_ref }}"
           base: "main"
           branch-suffix: timestamp
           # labels: "automated-pr"
