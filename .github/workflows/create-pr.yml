@@ -27,7 +27,7 @@ jobs:
           title: "Auto-generated PR"
           body: "This PR is auto-generated"
           branch: ${{ github.head_ref }}
-          # base: "main"
+          base: "main"
           branch-suffix: timestamp
           # labels: "automated-pr"
           # reviewers: "reviewer1"
