@@ -1,0 +1,34 @@
+name: create-pr
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    name: Create Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      
+      # Optional: Make changes if needed
+      # - run: echo "Making changes to files"
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Auto-generated commit"
+          title: "Auto-generated PR"
+          body: "This PR is auto-generated"
+          branch: "auto-generated-branch"
+          base: "main"
+          labels: "automated-pr"
+#          reviewers: ["reviewer1"]
+#          assignees: ["assignee1"]
+
