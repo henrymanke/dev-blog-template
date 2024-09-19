@@ -28,7 +28,7 @@ jobs:
           body: "This PR is auto-generated"
           branch: "auto-generated-branch"
           base: "main"
-          labels: "automated-pr"
+          # labels: "automated-pr"
           # reviewers: "reviewer1"
           # assignees: "assignee1"
 
