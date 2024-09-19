@@ -1,35 +1,35 @@
-name: create-pr
+name: Auto PR to Main
 
 on:
-  push:
-    branches-ignore:
-      - main
-
-permissions:
-  contents: write
-  pull-requests: write
+  pull_request:
+    types: [opened, synchronize] # Event types: PR creation and updates
+    branches:
+      - 'feature/**'             # Trigger for feature branches
 
 jobs:
   create-pr:
-    name: Create Pull Request
     runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      
-      # Optional: Make changes if needed
-      # - run: echo "Making changes to files"
-      
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          commit-message: "Auto-generated commit"
-          title: "Auto-generated PR"
-          body: "This PR is auto-generated"
-          branch: "${{ github.head_ref }}"
-          base: "main"
-          branch-suffix: timestamp
-          # labels: "automated-pr"
-          # reviewers: "reviewer1"
-          # assignees: "assignee1"
 
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Set up Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Create a Pull Request to main
+      run: |
+        # Get the current branch
+        BRANCH=$(echo "${{ github.head_ref }}")
+        
+        # Check if the PR already exists
+        if ! gh pr view $BRANCH --head=$BRANCH --base=main > /dev/null 2>&1; then
+          # Create a new Pull Request from the feature branch to main
+          gh pr create --base main --head $BRANCH --title "Auto PR from $BRANCH to main" --body "Automatically created PR from feature branch $BRANCH"
+        else
+          echo "Pull request already exists!"
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to authenticate requests
