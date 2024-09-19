@@ -29,6 +29,6 @@ jobs:
           branch: "auto-generated-branch"
           base: "main"
           labels: "automated-pr"
-#          reviewers: ["reviewer1"]
-#          assignees: ["assignee1"]
+          # reviewers: "reviewer1"
+          # assignees: "assignee1"
 
